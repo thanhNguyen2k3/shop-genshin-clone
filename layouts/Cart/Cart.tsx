@@ -13,6 +13,7 @@ import { Alert } from 'flowbite-react';
 import { IDetaisCustomer, IProduct } from '@/types';
 import ModalCheckout from '../ModalCheckout/ModalCheckout';
 import { getCartTotal, reset, removeProduct, increaseProduct, descreaseProduct } from '@/redux/cartSlide';
+import request from '@/utils/request';
 
 type Props = {
     cart: {
@@ -43,7 +44,7 @@ const Cart = () => {
     // Create order
     const createOrder = async (data: any) => {
         try {
-            const res = await axios.post('http://localhost:3000/api/orders', data);
+            const res = await request.post('api/orders', data);
 
             res.status === 200 && router.push('/orders/' + res.data._id);
             dispatch(reset());

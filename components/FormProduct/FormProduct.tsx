@@ -1,5 +1,6 @@
 import { FormEvent, useState } from 'react';
 import axios from 'axios';
+import request from '@/utils/request';
 
 type Props = {
     _id: string;
@@ -19,10 +20,10 @@ const FormProduct = ({ _id, name: existingName, description: existingDescription
 
         if (_id) {
             // update
-            axios.put(`http://localhost:3000/api/products`, { ...data, _id });
+            request.put(`products`, { ...data, _id });
         } else {
             // create
-            await axios.post('http://localhost:3000/api/products', data);
+            await request.post('products', data);
         }
     };
 

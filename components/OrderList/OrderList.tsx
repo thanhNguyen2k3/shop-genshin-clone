@@ -17,6 +17,7 @@ import { IOrder } from '@/types';
 import formartUSD from '@/utils/formartUSD';
 import ModalConfirmDelete from '../ModalConfirmDelete';
 import { useFomartTimeCreatedAt } from '@/utils/useFomartTimestamp';
+import request from '@/utils/request';
 
 const status = [
     {
@@ -90,7 +91,7 @@ const OrderList = ({ orders }: Props) => {
 
     const handleDeleteOrder = async () => {
         try {
-            const res = await axios.delete(`http://localhost:3000/api/orders/${dataId}`);
+            const res = await request.delete(`orders/${dataId}`);
             setOrderList((prev) => prev.filter((order) => order._id !== dataId));
             setClose(false);
         } catch (error) {
@@ -106,7 +107,7 @@ const OrderList = ({ orders }: Props) => {
         });
 
         try {
-            const res = await axios.put(`http://localhost:3000/api/orders/${id}`, {
+            const res = await request.post(`orders/${id}`, {
                 status: currentStatus + 1,
             });
 

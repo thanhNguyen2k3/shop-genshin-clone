@@ -1,7 +1,8 @@
+import request from '@/utils/request';
 import { faWarning } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import axios from 'axios';
-import router, { useRouter } from 'next/router';
+
+import { useRouter } from 'next/router';
 import { Dispatch, SetStateAction } from 'react';
 import { toast } from 'react-toastify';
 
@@ -14,7 +15,7 @@ const ModalConfirmDeleteForce = ({ onClose, dataIdDeleted }: Props) => {
     const router = useRouter();
 
     const handleDeleteForce = async () => {
-        await axios.delete(`http://localhost:3000/api/products/deleteforce/${dataIdDeleted}`);
+        await request.delete(`products/deleteforce/${dataIdDeleted}`);
         toast.warn('Bạn đã xóa sản phẩm này', { position: 'bottom-center' });
         router.push('');
         onClose(true);

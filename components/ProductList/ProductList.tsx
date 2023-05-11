@@ -8,6 +8,7 @@ import ModalConfirm from '../ModalConfirmDelete';
 import { useFomartTimeCreatedAt } from '@/utils/useFomartTimestamp';
 import formartUSD from '@/utils/formartUSD';
 import axios from 'axios';
+import request from '@/utils/request';
 
 type Props = {
     products: IProduct[];
@@ -18,7 +19,7 @@ const ProductList = ({ products }: Props) => {
     const [dataId, setDataId] = useState('');
 
     const handleDeleteForm = async () => {
-        await axios.delete(`http://localhost:3000/api/products/${dataId}`);
+        await request.delete(`products/${dataId}`);
     };
 
     if (products.length === 0)

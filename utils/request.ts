@@ -1,6 +1,6 @@
 import axios from 'axios';
 const request = axios.create({
-    baseURL: 'http://localhost:3000/api/',
+    baseURL: `${process.env.NEXTAUTH_URL}/api/`,
 });
 
 export const get = async (path: string, option = {}) => {
