@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import 'react-quill/dist/quill.snow.css';
+
+body {
+    box-sizing: border-box;
+}
+
+input,
+textarea {
+    outline: none;
+}
+
+input:focus {
+    @apply border-primary;
+}
+
+textarea {
+    @apply border-primary;
+}
+
+label {
+    @apply text-primary;
+}
+
+/* react quill */
+.ql-container {
+    min-height: 200px;
+}
+
+/* tailwind flowbite */
+
+/* custom */
+
+.cart-container {
+    @apply lg:mt-20 max-lg:mt-20 md:mt-20 max-md:mt-20 sm:mt-20 max-sm:mt-14 2xl:mt-20 max-2xl:mt-20;
+}
+
+.header {
+    width: 100%;
+}
+
+.w-layout {
+    max-width: 100%;
+}
+
+.modal-checkout {
+    height: calc((100% - 50px));
+}
+
+.bg-wrapper {
+    margin: 0 auto;
+}
+
+.layout-wrapper {
+    background: url('/bg.png') top center / cover no-repeat;
+    @apply lg:pt-20 max-lg:pt-20 md:pt-20 max-md:pt-20 sm:pt-20 max-sm:pt-14 2xl:pt-20 max-2xl:pt-20;
+}
+
+.bg-banner {
+    background-image: url('/banner.png');
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.bg-banner::before {
+    position: absolute;
+    content: '';
+    background-color: rgba(0, 0, 0, 0.8);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.bg-login {
+    margin-top: 60px;
+    margin-bottom: 20px;
+    background: url('/banner.png') top center / cover no-repeat;
+}
+
+.description-text-editor ul li {
+    @apply list-disc ml-10 leading-relaxed;
+}
+
+.description-text-editor ul {
+    @apply py-1;
+}
+
+.description-text-editor h2 {
+    @apply py-1;
+}
