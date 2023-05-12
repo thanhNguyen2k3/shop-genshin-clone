@@ -1,5 +1,4 @@
 import Layout from '@/components/Layout';
-import request from '@/utils/request';
 import { GetServerSideProps } from 'next';
 
 export default function Home() {
@@ -9,3 +8,20 @@ export default function Home() {
         </Layout>
     );
 }
+
+export const getServerSideProps: GetServerSideProps = async (context: any) => {
+    const myCookie = context.req?.cookies || '';
+
+    if (myCookie.token !== process.env.TOKEN) {
+        return {
+            redirect: {
+                destination: '/admin/login',
+                permanent: false,
+            },
+        };
+    }
+
+    return {
+        props: myCookie || null,
+    };
+};

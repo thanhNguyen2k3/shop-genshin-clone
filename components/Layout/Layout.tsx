@@ -1,8 +1,6 @@
 import { useSession, signOut } from 'next-auth/react';
 import Sidebar from '@/components/Sidebar';
 import Router from 'next/router';
-import { useEffect } from 'react';
-import SignIn from '@/pages/auth/signin';
 import { GetServerSideProps } from 'next';
 import request from '@/utils/request';
 
@@ -12,14 +10,6 @@ type Props = {
 
 function Layout({ children }: Props) {
     const { status, data: session } = useSession();
-
-    useEffect(() => {
-        if (status === 'unauthenticated') Router.replace('/auth/signin');
-    }, [status]);
-
-    if (status !== 'authenticated') {
-        return <SignIn />;
-    }
 
     return (
         <div className="flex flex-1 max-w-full">

@@ -18,12 +18,10 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ICategory, IOrder, IProduct } from '@/types';
-import { GetServerSideProps } from 'next';
 import request from '@/utils/request';
 
 type Props = {
-    session: Session;
+    session: Session | null;
     status: any;
     signOut: any;
 };
@@ -59,7 +57,7 @@ const Sidebar = (props: Props) => {
     const { pathname } = router;
     const sessionAuth = session?.user;
 
-    const [openSidebar, setOpenSidebar] = useState(false);
+    const [openSidebar, setOpenSidebar] = useState(true);
 
     const logout = async () => {
         signOut();
@@ -120,9 +118,9 @@ const Sidebar = (props: Props) => {
                                 <div>
                                     <div className="mt-6 w-full justify-center flex items-center">
                                         <img
-                                            src={sessionAuth?.image as string}
-                                            className="w-24 h-24  rounded-full"
-                                            alt={sessionAuth?.name as string}
+                                            src={(sessionAuth?.image as string) || '/banner.png'}
+                                            className="w-24 h-24 object-cover rounded-full"
+                                            alt={(sessionAuth?.name as string) || 'Admin'}
                                         />
                                     </div>
                                     <ul className="mt-6">

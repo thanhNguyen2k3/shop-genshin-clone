@@ -1,26 +1,24 @@
-import { NextPage } from 'next';
-import { signIn } from 'next-auth/react';
+import request from '@/utils/request';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 
-import { FormEventHandler, useState } from 'react';
-
-type Props = {};
-
-const SignIn: NextPage = (props: Props): JSX.Element => {
+const CheckAdmin = () => {
     const router = useRouter();
-    const [userInfo, setUserInfo] = useState({ email: '', password: '' });
+    const [username, setAdminName] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState(false);
 
-    const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
-        e.preventDefault();
+    const handleSubmit = async () => {
+        try {
+            await request.post('login', {
+                username,
+                password,
+            });
 
-        const res = await signIn('credentials', {
-            email: userInfo.email,
-            password: userInfo.password,
-            image: 'https://i.redd.it/yrpxo2ro8og91.png',
-            redirect: false,
-        });
-
-        router.push('/admin');
+            router.push('/admin');
+        } catch (error) {
+            setError(error as any);
+        }
     };
 
     return (
@@ -33,11 +31,11 @@ const SignIn: NextPage = (props: Props): JSX.Element => {
                             Username
                         </label>
                         <input
-                            value={userInfo.email}
-                            onChange={({ target }) => setUserInfo({ ...userInfo, email: target.value })}
+                            value={username}
+                            onChange={(e) => setAdminName(e.target.value)}
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             type="text"
-                            placeholder="Email"
+                            placeholder="admin Name"
                         />
                     </div>
                     <div className="mb-6">
@@ -45,8 +43,8 @@ const SignIn: NextPage = (props: Props): JSX.Element => {
                             Mật khẩu
                         </label>
                         <input
-                            value={userInfo.password}
-                            onChange={({ target }) => setUserInfo({ ...userInfo, password: target.value })}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                             type="password"
                             placeholder="Mật khẩu"
@@ -57,10 +55,12 @@ const SignIn: NextPage = (props: Props): JSX.Element => {
                             Đăng nhập
                         </button>
                     </div>
+
+                    {error && <span className="text-red-500 text-xl">Bạn không phải là Admin</span>}
                 </form>
             </div>
         </div>
     );
 };
 
-export default SignIn;
+export default CheckAdmin;
